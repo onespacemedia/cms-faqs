@@ -9,7 +9,8 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='onespacemedia-cms-faqs',
-    version='0.1',
+    version='0.1.1',
+    url='https://github.com/onespacemedia/cms-faqs',
     packages=['faqs'],
     include_package_data=True,
     license='BSD License',  # example license
@@ -31,4 +32,18 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
+    install_requires=[
+        'django',
+        'psycopg2',
+        'django-suit',
+        'django-optimizations',
+        'Pillow',
+        'django-reversion',
+        'django-usertools',
+        'django-historylinks',
+        'django-watson',
+        'django-extensions',
+        'Werkzeug',
+        'onespacemedia-cms'
+    ]
 )
