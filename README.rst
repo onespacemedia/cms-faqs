@@ -1,5 +1,5 @@
 =====
-FAqs
+FAQs
 =====
 
 Faqs add simple FAQ management to the Onespacemedia CMS
