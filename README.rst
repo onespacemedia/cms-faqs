@@ -4,8 +4,6 @@ FAQs
 
 Faqs add simple FAQ management to the Onespacemedia CMS
 
-Detailed documentation is in the "docs" directory.
-
 Quick start
 -----------
 
