@@ -1,0 +1,82 @@
+from django.db import models
+
+from cms.apps.pages.models import ContentBase
+from cms.models import SearchMetaBase, HtmlField, PageBase
+
+import watson
+
+
+class Faqs(ContentBase):
+
+    header_text = HtmlField(
+        blank=True,
+        null=True,
+    )
+
+    footer_text = HtmlField(
+        blank=True,
+        null=True,
+    )
+
+    urlconf = "faqs.urls"
+
+
+class Category(PageBase):
+
+    """ A category for Faq"""
+
+    content_primary = HtmlField(
+        "primary content",
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = "catgeory"
+        verbose_name_plural = "categories"
+
+
+class Faq(SearchMetaBase):
+    page = models.ForeignKey(
+        Faqs
+    )
+
+    question = models.CharField(
+        max_length=256
+    )
+
+    answer = HtmlField()
+
+    categories = models.ManyToManyField(
+        Category,
+        blank=True,
+        null=True
+    )
+
+    url_title = models.CharField(
+        max_length=256,
+        unique=True
+    )
+
+    order = models.PositiveIntegerField(
+        default=0
+    )
+
+    def __unicode__(self):
+        return self.question
+
+    class Meta:
+        verbose_name = "faq"
+        verbose_name_plural = "faqs"
+        ordering = ['order', 'id', 'question']
+
+    def get_absolute_url(self):
+        return "{}{}/".format(
+            self.page.page.get_absolute_url(),
+            self.url_title
+        )
+
+
+watson.register(Faq)
+
+
+
