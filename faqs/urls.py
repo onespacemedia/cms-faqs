@@ -1,3 +1,4 @@
+""" URLs used by the faqs app """
 from django.conf.urls import patterns, url
 
 import views

@@ -1,3 +1,4 @@
+""" Models used by the faqs app. """
 from django.db import models
 
 from cms.apps.pages.models import ContentBase
@@ -7,6 +8,13 @@ import watson
 
 
 class Faqs(ContentBase):
+    """ A base for Faq's """
+
+    # The heading that the admin places this content under.
+    classifier = "apps"
+
+    # The urlconf used to power this content's views.
+    urlconf = "faqs.urls"
 
     header_text = HtmlField(
         blank=True,
@@ -18,12 +26,9 @@ class Faqs(ContentBase):
         null=True,
     )
 
-    urlconf = "faqs.urls"
-
 
 class Category(PageBase):
-
-    """ A category for Faq"""
+    """ A category for Faq's """
 
     content_primary = HtmlField(
         "primary content",
@@ -36,6 +41,7 @@ class Category(PageBase):
 
 
 class Faq(SearchMetaBase):
+    """ An FAQ """
     page = models.ForeignKey(
         Faqs
     )
@@ -70,11 +76,16 @@ class Faq(SearchMetaBase):
         ordering = ['order', 'id', 'question']
 
     def get_absolute_url(self):
+        """ Gets the url of a Faq
+
+            Returns:
+                url of Person
+
+        """
         return "{}{}/".format(
             self.page.page.get_absolute_url(),
             self.url_title
         )
-
 
 watson.register(Faq)
 

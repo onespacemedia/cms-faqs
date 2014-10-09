@@ -1,3 +1,4 @@
+""" Admin settings for the faqs app """
 from django.contrib import admin
 
 from cms.admin import SearchMetaBaseAdmin, PageBaseAdmin
@@ -7,6 +8,7 @@ from .models import Faq, Category
 
 @admin.register(Faq)
 class FaqAdmin(SearchMetaBaseAdmin):
+    """ Admin settings for the Faq model """
     prepopulated_fields = {"url_title": ("question",)}
     filter_horizontal = ("categories",)
 
@@ -28,7 +30,7 @@ class FaqAdmin(SearchMetaBaseAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(PageBaseAdmin):
-    """Admin settings for the FAQ Category model."""
+    """ Admin settings for the FAQ Category model. """
 
     prepopulated_fields = {"url_title": ("title",)}
 
