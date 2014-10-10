@@ -27,6 +27,9 @@ class FaqAdmin(SearchMetaBaseAdmin):
         SearchMetaBaseAdmin.SEO_FIELDS,
     )
 
+    def __init__(self, model, admin_site):
+        super(FaqAdmin, self).__init__(model, admin_site)
+
 
 @admin.register(Category)
 class CategoryAdmin(PageBaseAdmin):
