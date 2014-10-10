@@ -2,8 +2,6 @@
 
 {% block content_primary %}
 
-    <h1>FAQs</h1>
-
     {% for faq in object_list %}
         <a href="{{ faq.get_absolute_url }}">{{ faq.question }}</a>
         {% if faq.categories.all %}
@@ -12,7 +10,6 @@
                 <a href="{{ pages.current.get_absolute_url }}categories/{{ category.url_title }}">{{ category }}</a>
             {% endfor %}
         {% endif %}
-        <hr>
     {% endfor %}
 
 {% endblock %}

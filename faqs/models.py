@@ -16,14 +16,16 @@ class Faqs(ContentBase):
     # The urlconf used to power this content's views.
     urlconf = "faqs.urls"
 
-    header_text = HtmlField(
+    standfirst = models.TextField(
         blank=True,
-        null=True,
+        null=True
     )
 
-    footer_text = HtmlField(
+    per_page = models.IntegerField(
+        "faqs per page",
+        default=5,
         blank=True,
-        null=True,
+        null=True
     )
 
 

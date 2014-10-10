@@ -8,6 +8,10 @@ class FaqListView(ListView):
     """ A list of all Faqs """
     model = Faq
 
+    def get_paginate_by(self, queryset):
+        """Returns the number of faqs to show per page."""
+        return self.request.pages.current.content.per_page
+
 
 class FaqView(DetailView):
     """ An individual Faq """
