@@ -90,6 +90,3 @@ class Faq(SearchMetaBase):
         )
 
 watson.register(Faq)
-
-
-
