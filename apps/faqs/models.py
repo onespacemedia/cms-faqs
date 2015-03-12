@@ -14,7 +14,7 @@ class Faqs(ContentBase):
     classifier = "apps"
 
     # The urlconf used to power this content's views.
-    urlconf = "{{ project_name }}.faqs.urls"
+    urlconf = "{{ project_name }}.apps.faqs.urls"
 
     standfirst = models.TextField(
         blank=True,
