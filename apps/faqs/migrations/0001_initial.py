@@ -8,7 +8,7 @@ import cms.models.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pages', '0002_auto_20140909_1136'),
+        ('pages', '0001_initial'),
     ]
 
     operations = [
@@ -65,9 +65,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Faqs',
             fields=[
-                ('page', models.OneToOneField(related_name=b'+', primary_key=True, serialize=False, editable=False, to='pages.Page')),
-                ('header_text', cms.models.fields.HtmlField(null=True, blank=True)),
-                ('footer_text', cms.models.fields.HtmlField(null=True, blank=True)),
+                ('page', models.OneToOneField(related_name='+', primary_key=True, serialize=False, editable=False, to='pages.Page')),
+                ('standfirst', models.TextField(null=True, blank=True)),
+                ('per_page', models.IntegerField(default=5, null=True, verbose_name=b'faqs per page', blank=True)),
             ],
             options={
                 'abstract': False,
