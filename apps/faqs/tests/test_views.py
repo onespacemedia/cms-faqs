@@ -1,13 +1,12 @@
+from cms import externals
+from cms.apps.pages.middleware import RequestPageManager
+from cms.apps.pages.models import Page
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.client import RequestFactory
 
 from ..models import Faqs
 from ..views import FaqListView
-
-from cms import externals
-from cms.apps.pages.models import Page
-from cms.apps.pages.middleware import RequestPageManager
 
 
 class FAQsTestCase(TestCase):

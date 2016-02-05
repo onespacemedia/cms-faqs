@@ -1,10 +1,7 @@
-""" Models used by the faqs app. """
-from django.db import models
-
-from cms.apps.pages.models import ContentBase
-from cms.models import SearchMetaBase, HtmlField, PageBase
-
 import watson
+from cms.apps.pages.models import ContentBase
+from cms.models import HtmlField, PageBase, SearchMetaBase
+from django.db import models
 
 
 class Faqs(ContentBase):
@@ -28,6 +25,9 @@ class Faqs(ContentBase):
         null=True
     )
 
+    def __unicode__(self):
+        return self.__str__()
+
 
 class Category(PageBase):
     """ A category for Faq's """
@@ -36,6 +36,9 @@ class Category(PageBase):
         "primary content",
         blank=True
     )
+
+    def __unicode__(self):
+        return self.__str__()
 
     class Meta:
         verbose_name = "catgeory"
@@ -73,20 +76,13 @@ class Faq(SearchMetaBase):
         return self.question
 
     class Meta:
-        verbose_name = "faq"
-        verbose_name_plural = "faqs"
+        verbose_name = "FAQ"
+        verbose_name_plural = "FAQs"
         ordering = ['order', 'id', 'question']
 
     def get_absolute_url(self):
-        """ Gets the url of a Faq
-
-            Returns:
-                url of Person
-
-        """
-        return "{}{}/".format(
-            self.page.page.get_absolute_url(),
-            self.url_title
-        )
+        return self.page.page.reverse('faq', {
+            'faq_title': self.url_title,
+        })
 
 watson.register(Faq)

@@ -1,9 +1,7 @@
-""" Admin settings for the faqs app """
+from cms.admin import PageBaseAdmin, SearchMetaBaseAdmin
 from django.contrib import admin
 
-from cms.admin import SearchMetaBaseAdmin, PageBaseAdmin
-
-from .models import Faq, Category
+from .models import Category, Faq
 
 
 @admin.register(Faq)
@@ -43,4 +41,3 @@ class CategoryAdmin(PageBaseAdmin):
         PageBaseAdmin.NAVIGATION_FIELDS,
         PageBaseAdmin.SEO_FIELDS,
     )
-

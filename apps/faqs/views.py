@@ -1,7 +1,6 @@
-""" Views used by the faqs app """
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
-from .models import Faq, Category
+from .models import Category, Faq
 
 
 class FaqListView(ListView):

@@ -1,7 +1,6 @@
-""" URLs used by the faqs app """
 from django.conf.urls import url
 
-import views
+from . import views
 
 urlpatterns = [
     url(r"^categories/$", views.FaqCategoryListView.as_view(), name="category_list"),
