@@ -12,14 +12,7 @@ class FaqAdmin(SearchMetaBaseAdmin):
 
     fieldsets = (
         (None, {
-            "fields": (
-                "page",
-                "question",
-                "url_title",
-                "answer",
-                "categories",
-                "order",
-            )
+            "fields": ["page", "question", "url_title", "answer", "categories", "order"]
         }),
         SearchMetaBaseAdmin.PUBLICATION_FIELDS,
         SearchMetaBaseAdmin.SEO_FIELDS,
@@ -30,7 +23,9 @@ class FaqAdmin(SearchMetaBaseAdmin):
 class CategoryAdmin(PageBaseAdmin):
     """ Admin settings for the FAQ Category model. """
 
-    prepopulated_fields = {"url_title": ("title",)}
+    prepopulated_fields = {
+        "slug": ("title",)
+    }
 
     fieldsets = (
         PageBaseAdmin.TITLE_FIELDS,
