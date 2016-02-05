@@ -81,7 +81,7 @@ class Faq(SearchMetaBase):
         ordering = ['order', 'id', 'question']
 
     def get_absolute_url(self):
-        return self.page.page.reverse('faq', {
+        return self.page.page.reverse('faq', kwargs={
             'faq_title': self.url_title,
         })
 
