@@ -43,7 +43,7 @@ class FAQsTestCase(TestCase):
         request = self.factory.get('/')
 
         # Set the pages attribute manually as middleware isn't run in tests.
-        request.pages = RequestPageManager(request.path, request.path_info)
+        request.pages = RequestPageManager(request)
 
         view = FaqListView()
         view = setup_view(view, request)
