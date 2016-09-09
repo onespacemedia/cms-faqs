@@ -15,7 +15,7 @@ class FAQsTestCase(TestCase):
         # Note: as this is the only page in the database, it's absolute URL
         # will simply be '/'
 
-        with externals.watson.context_manager("update_index")():
+        with externals.watson.context_manager('update_index')():
             content_type = ContentType.objects.get_for_model(Faqs)
             self.page = Page.objects.create(
                 content_type=content_type,
@@ -29,11 +29,11 @@ class FAQsTestCase(TestCase):
 
     def test_faq_list_view_get_paginate_by(self):
         def setup_view(view, request, *args, **kwargs):
-            """Mimic as_view() returned callable, but returns view instance.
+            '''Mimic as_view() returned callable, but returns view instance.
 
             args and kwargs are the same you would pass to ``reverse()``
 
-            """
+            '''
             view.request = request
             view.args = args
             view.kwargs = kwargs

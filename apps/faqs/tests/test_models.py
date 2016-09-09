@@ -12,7 +12,7 @@ class ApplicationTestCase(TestCase):
         # Note: as this is the only page in the database, it's absolute URL
         # will simply be '/'
 
-        with externals.watson.context_manager("update_index")():
+        with externals.watson.context_manager('update_index')():
             content_type = ContentType.objects.get_for_model(Faqs)
             self.page = Page.objects.create(
                 content_type=content_type,

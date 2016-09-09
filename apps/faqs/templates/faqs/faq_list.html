@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content_primary %}
+{% block main %}
   {% for faq in object_list %}
     <a href="{{ faq.get_absolute_url() }}">{{ faq.question }}</a>
 

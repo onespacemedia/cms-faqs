@@ -5,13 +5,11 @@ from django.db import models
 
 
 class Faqs(ContentBase):
-    """ A base for Faq's """
-
     # The heading that the admin places this content under.
-    classifier = "apps"
+    classifier = 'apps'
 
     # The urlconf used to power this content's views.
-    urlconf = "{{ project_name }}.apps.faqs.urls"
+    urlconf = '{{ project_name }}.apps.faqs.urls'
 
     standfirst = models.TextField(
         blank=True,
@@ -19,7 +17,7 @@ class Faqs(ContentBase):
     )
 
     per_page = models.IntegerField(
-        "faqs per page",
+        'faqs per page',
         default=5,
         blank=True,
         null=True
@@ -30,10 +28,8 @@ class Faqs(ContentBase):
 
 
 class Category(PageBase):
-    """ A category for Faq's """
-
     content_primary = HtmlField(
-        "primary content",
+        'primary content',
         blank=True
     )
 
@@ -41,12 +37,11 @@ class Category(PageBase):
         return self.__str__()
 
     class Meta:
-        verbose_name = "catgeory"
-        verbose_name_plural = "categories"
+        verbose_name = 'catgeory'
+        verbose_name_plural = 'categories'
 
 
 class Faq(SearchMetaBase):
-    """ An FAQ """
     page = models.ForeignKey(
         Faqs
     )
@@ -76,8 +71,8 @@ class Faq(SearchMetaBase):
         return self.question
 
     class Meta:
-        verbose_name = "FAQ"
-        verbose_name_plural = "FAQs"
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQs'
         ordering = ['order', 'id', 'question']
 
     def get_absolute_url(self):
