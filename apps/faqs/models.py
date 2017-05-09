@@ -41,7 +41,7 @@ class Category(PageBase):
         return self.title
 
     class Meta:
-        verbose_name = 'categeory'
+        verbose_name = 'category'
         verbose_name_plural = 'categories'
 
 
