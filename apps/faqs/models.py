@@ -23,6 +23,10 @@ class Faqs(ContentBase):
         null=True
     )
 
+    class Meta:
+        verbose_name = 'FAQs'
+        verbose_name_plural = 'FAQs'
+
     def __unicode__(self):
         return self.page.title
 
@@ -55,7 +59,6 @@ class Faq(SearchMetaBase):
     categories = models.ManyToManyField(
         Category,
         blank=True,
-        null=True
     )
 
     slug = models.CharField(
