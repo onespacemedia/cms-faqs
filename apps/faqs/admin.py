@@ -8,6 +8,7 @@ from .models import Category, Faq, Faqs
 @admin.register(Faq)
 class FaqAdmin(SearchMetaBaseAdmin, SortableModelAdmin):
     prepopulated_fields = {'slug': ('question',)}
+
     filter_horizontal = ['categories']
 
     fieldsets = (
