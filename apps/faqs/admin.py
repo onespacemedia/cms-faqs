@@ -6,12 +6,12 @@ from .models import Category, Faq
 
 @admin.register(Faq)
 class FaqAdmin(SearchMetaBaseAdmin):
-    prepopulated_fields = {'url_title': ('question',)}
+    prepopulated_fields = {'slug': ('question',)}
     filter_horizontal = ['categories']
 
     fieldsets = (
         (None, {
-            'fields': ['page', 'question', 'url_title', 'answer', 'categories', 'order']
+            'fields': ['page', 'question', 'slug', 'answer', 'categories', 'order']
         }),
         SearchMetaBaseAdmin.PUBLICATION_FIELDS,
         SearchMetaBaseAdmin.SEO_FIELDS,

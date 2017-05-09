@@ -34,7 +34,7 @@ class Category(PageBase):
     )
 
     def __unicode__(self):
-        return self.__str__()
+        return self.title
 
     class Meta:
         verbose_name = 'catgeory'
@@ -58,7 +58,7 @@ class Faq(SearchMetaBase):
         null=True
     )
 
-    url_title = models.CharField(
+    slug = models.CharField(
         max_length=256,
         unique=True
     )
@@ -77,7 +77,12 @@ class Faq(SearchMetaBase):
 
     def get_absolute_url(self):
         return self.page.page.reverse('faq', kwargs={
-            'faq_title': self.url_title,
+            'slug': self.slug,
         })
+
+    # Workaround CMS bug
+    @property
+    def title(self):
+        return self.question
 
 watson.register(Faq)

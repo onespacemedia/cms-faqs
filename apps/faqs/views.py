@@ -12,8 +12,6 @@ class FaqListView(ListView):
 
 class FaqView(DetailView):
     model = Faq
-    slug_field = 'url_title'
-    slug_url_kwarg = 'faq_title'
 
 
 class FaqCategoryListView(ListView):
@@ -22,5 +20,3 @@ class FaqCategoryListView(ListView):
 
 class FaqCategoryView(DetailView):
     model = Category
-    slug_field = 'url_title'
-    slug_url_kwarg = 'category_title'
