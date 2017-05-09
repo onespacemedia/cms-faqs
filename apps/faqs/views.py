@@ -13,6 +13,7 @@ class FaqListView(ListView):
         queryset = super(FaqListView, self).get_queryset()
         return queryset.filter(page__page=self.request.pages.current)
 
+
 class FaqView(DetailView):
     model = Faq
 
