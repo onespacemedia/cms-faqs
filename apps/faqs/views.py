@@ -9,11 +9,13 @@ class FaqListView(ListView):
     def get_paginate_by(self, queryset):
         return self.request.pages.current.content.per_page
 
+    def get_queryset(self):
+        queryset = super(FaqListView, self).get_queryset()
+        return queryset.filter(page__page=self.request.pages.current)
+
 
 class FaqView(DetailView):
     model = Faq
-    slug_field = 'url_title'
-    slug_url_kwarg = 'faq_title'
 
 
 class FaqCategoryListView(ListView):
@@ -22,5 +24,3 @@ class FaqCategoryListView(ListView):
 
 class FaqCategoryView(DetailView):
     model = Category
-    slug_field = 'url_title'
-    slug_url_kwarg = 'category_title'

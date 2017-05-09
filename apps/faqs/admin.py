@@ -1,21 +1,33 @@
 from cms.admin import PageBaseAdmin, SearchMetaBaseAdmin
 from django.contrib import admin
+from suit.admin import SortableModelAdmin
 
-from .models import Category, Faq
+from .models import Category, Faq, Faqs
 
 
 @admin.register(Faq)
-class FaqAdmin(SearchMetaBaseAdmin):
-    prepopulated_fields = {'url_title': ('question',)}
+class FaqAdmin(SearchMetaBaseAdmin, SortableModelAdmin):
+    prepopulated_fields = {'slug': ('question',)}
+
     filter_horizontal = ['categories']
 
     fieldsets = (
         (None, {
-            'fields': ['page', 'question', 'url_title', 'answer', 'categories', 'order']
+            'fields': ['page', 'question', 'slug', 'answer', 'categories']
         }),
         SearchMetaBaseAdmin.PUBLICATION_FIELDS,
         SearchMetaBaseAdmin.SEO_FIELDS,
     )
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(FaqAdmin, self).get_form(request, obj, **kwargs)
+
+        try:
+            form.base_fields['page'].initial = Faqs.objects.all()[0]
+        except IndexError:
+            pass
+
+        return form
 
 
 @admin.register(Category)

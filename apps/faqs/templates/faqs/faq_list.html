@@ -7,7 +7,7 @@
     {% if faq.categories.all() %}
       Category:
       {% for category in faq.categories.all() %}
-        <a href="{{ pages.current.get_absolute_url() }}categories/{{ category.url_title }}">
+        <a href="{{ pages.current.get_absolute_url() }}categories/{{ category.slug }}">
           {{ category }}
         </a>
       {% endfor %}

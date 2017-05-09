@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
-  {% for category in faqcategory_list %}
-    <a href="{{ pages.current.get_absolute_url() }}categories/{{ category.url_title }}">
+  {% for category in object_list %}
+    <a href="{{ pages.current.get_absolute_url() }}categories/{{ category.slug }}">
       {{ category.title }}
     </a>
   {% else %}

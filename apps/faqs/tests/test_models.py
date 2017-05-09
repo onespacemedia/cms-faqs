@@ -28,7 +28,7 @@ class ApplicationTestCase(TestCase):
             page=self.faq_page,
             question='What colour is the sky?',
             answer='Blue',
-            url_title='what-colour-sky'
+            slug='what-colour-sky'
         )
 
     def test_faq_get_absolute_url(self):

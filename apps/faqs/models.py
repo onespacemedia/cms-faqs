@@ -23,6 +23,10 @@ class Faqs(ContentBase):
         null=True
     )
 
+    class Meta:
+        verbose_name = 'FAQs'
+        verbose_name_plural = 'FAQs'
+
     def __unicode__(self):
         return self.page.title
 
@@ -34,10 +38,9 @@ class Category(PageBase):
     )
 
     def __unicode__(self):
-        return self.__str__()
+        return self.title
 
     class Meta:
-        verbose_name = 'catgeory'
         verbose_name_plural = 'categories'
 
 
@@ -55,10 +58,9 @@ class Faq(SearchMetaBase):
     categories = models.ManyToManyField(
         Category,
         blank=True,
-        null=True
     )
 
-    url_title = models.CharField(
+    slug = models.CharField(
         max_length=256,
         unique=True
     )
@@ -77,7 +79,12 @@ class Faq(SearchMetaBase):
 
     def get_absolute_url(self):
         return self.page.page.reverse('faq', kwargs={
-            'faq_title': self.url_title,
+            'slug': self.slug,
         })
+
+    # Workaround CMS bug
+    @property
+    def title(self):
+        return self.question
 
 watson.register(Faq)
