@@ -17,12 +17,15 @@ class FaqAdmin(SearchMetaBaseAdmin, SortableModelAdmin):
         SearchMetaBaseAdmin.PUBLICATION_FIELDS,
         SearchMetaBaseAdmin.SEO_FIELDS,
     )
+
     def get_form(self, request, obj=None, **kwargs):
         form = super(FaqAdmin, self).get_form(request, obj, **kwargs)
+
         try:
-            form.base_fields['page'].initial = Faq.objects.all()[0]
+            form.base_fields['page'].initial = Faqs.objects.all()[0]
         except IndexError:
             pass
+
         return form
 
 
