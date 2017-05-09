@@ -2,7 +2,7 @@ from cms.admin import PageBaseAdmin, SearchMetaBaseAdmin
 from suit.admin import SortableModelAdmin
 from django.contrib import admin
 
-from .models import Category, Faq
+from .models import Category, Faq, Faqs
 
 
 @admin.register(Faq)
