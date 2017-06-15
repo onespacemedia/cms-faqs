@@ -1,9 +1,9 @@
-from cms import externals
 from cms.apps.pages.middleware import RequestPageManager
 from cms.apps.pages.models import Page
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.client import RequestFactory
+from watson import search
 
 from ..models import Faqs
 from ..views import FaqListView
@@ -15,7 +15,7 @@ class FAQsTestCase(TestCase):
         # Note: as this is the only page in the database, it's absolute URL
         # will simply be '/'
 
-        with externals.watson.context_manager('update_index')():
+        with search.updated_index():
             content_type = ContentType.objects.get_for_model(Faqs)
             self.page = Page.objects.create(
                 content_type=content_type,
