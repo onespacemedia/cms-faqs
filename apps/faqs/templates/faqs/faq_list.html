@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 
 {% block main %}
-  {% for faq in object_list %}
-    <a href="{{ faq.get_absolute_url() }}">{{ faq.question }}</a>
-
-    {% if faq.categories.all() %}
-      Category:
-      {% for category in faq.categories.all() %}
-        <a href="{{ pages.current.get_absolute_url() }}categories/{{ category.slug }}">
-          {{ category }}
-        </a>
-      {% endfor %}
-    {% endif %}
-  {% endfor %}
+  <ul>
+    {% for faq in faq_list %}
+      <li>{{ faq }}</li>
+    {% else %}
+      <li>No faqs</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

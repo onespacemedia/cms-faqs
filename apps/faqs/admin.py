@@ -1,4 +1,4 @@
-from cms.admin import PageBaseAdmin, SearchMetaBaseAdmin
+from cms.admin import PageBaseAdmin
 from django.contrib import admin
 from suit.admin import SortableModelAdmin
 
@@ -6,24 +6,29 @@ from .models import Category, Faq, Faqs
 
 
 @admin.register(Faq)
-class FaqAdmin(SearchMetaBaseAdmin, SortableModelAdmin):
-    prepopulated_fields = {'slug': ('question',)}
+class FaqAdmin(SortableModelAdmin, PageBaseAdmin):
+    list_display = ['__str__', 'is_online', 'order']
+    list_editable = ['is_online', 'order']
 
-    filter_horizontal = ['categories']
-
-    fieldsets = (
+    fieldsets = [
         (None, {
-            'fields': ['page', 'question', 'slug', 'answer', 'categories']
+            'fields': ['page', 'category', 'title', 'slug'],
         }),
-        SearchMetaBaseAdmin.PUBLICATION_FIELDS,
-        SearchMetaBaseAdmin.SEO_FIELDS,
-    )
+        ('Content', {
+            'fields': ['question', 'answer'],
+        }),
+        PageBaseAdmin.PUBLICATION_FIELDS,
+        PageBaseAdmin.NAVIGATION_FIELDS,
+        PageBaseAdmin.SEO_FIELDS,
+        PageBaseAdmin.OPENGRAPH_FIELDS,
+        PageBaseAdmin.OPENGRAPH_TWITTER_FIELDS,
+    ]
 
     def get_form(self, request, obj=None, **kwargs):
         form = super(FaqAdmin, self).get_form(request, obj, **kwargs)
 
         try:
-            form.base_fields['page'].initial = Faqs.objects.all()[0]
+            form.base_fields['page'].initial = Faqs.objects.first()
         except IndexError:
             pass
 
@@ -31,17 +36,7 @@ class FaqAdmin(SearchMetaBaseAdmin, SortableModelAdmin):
 
 
 @admin.register(Category)
-class CategoryAdmin(PageBaseAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ('title',)
     }
-
-    fieldsets = (
-        PageBaseAdmin.TITLE_FIELDS,
-        ('Content', {
-            'fields': ['content_primary']
-        }),
-        PageBaseAdmin.PUBLICATION_FIELDS,
-        PageBaseAdmin.NAVIGATION_FIELDS,
-        PageBaseAdmin.SEO_FIELDS,
-    )

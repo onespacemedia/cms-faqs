@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView
 
-from .models import Category, Faq
+from .models import Faq
 
 
 class FaqListView(ListView):
@@ -11,16 +11,9 @@ class FaqListView(ListView):
 
     def get_queryset(self):
         queryset = super(FaqListView, self).get_queryset()
+
         return queryset.filter(page__page=self.request.pages.current)
 
 
 class FaqView(DetailView):
     model = Faq
-
-
-class FaqCategoryListView(ListView):
-    model = Category
-
-
-class FaqCategoryView(DetailView):
-    model = Category

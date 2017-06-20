@@ -12,7 +12,7 @@ class ApplicationTestCase(TestCase):
         # Note: as this is the only page in the database, it's absolute URL
         # will simply be '/'
 
-        with search.updated_index():
+        with search.update_index():
             content_type = ContentType.objects.get_for_model(Faqs)
             self.page = Page.objects.create(
                 content_type=content_type,
@@ -35,4 +35,4 @@ class ApplicationTestCase(TestCase):
         self.assertEqual(self.faq.get_absolute_url(), '/what-colour-sky/')
 
     def test_faq_unicode(self):
-        self.assertEqual(self.faq.__unicode__(), 'What colour is the sky?')
+        self.assertEqual(self.faq.__str__(), 'What colour is the sky?')

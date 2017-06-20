@@ -1,24 +1,17 @@
-import watson
 from cms.apps.pages.models import ContentBase
-from cms.models import HtmlField, PageBase, SearchMetaBase
+from cms.models import HtmlField, PageBase
 from django.db import models
+from watson import search as watson
 
 
 class Faqs(ContentBase):
-    # The heading that the admin places this content under.
-    classifier = 'apps'
 
-    # The urlconf used to power this content's views.
+    classifier = 'apps'
     urlconf = '{{ project_name }}.apps.faqs.urls'
 
-    standfirst = models.TextField(
-        blank=True,
-        null=True
-    )
-
-    per_page = models.IntegerField(
-        'faqs per page',
-        default=5,
+    per_page = models.PositiveIntegerField(
+        'FAQs per page',
+        default=10,
         blank=True,
         null=True
     )
@@ -27,26 +20,37 @@ class Faqs(ContentBase):
         verbose_name = 'FAQs'
         verbose_name_plural = 'FAQs'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.page.title
 
 
-class Category(PageBase):
-    content_primary = HtmlField(
-        'primary content',
-        blank=True
+class Category(models.Model):
+
+    title = models.CharField(
+        max_length=255,
     )
 
-    def __unicode__(self):
+    slug = models.SlugField(
+        unique=True
+    )
+
+    def __str__(self):
         return self.title
 
     class Meta:
         verbose_name_plural = 'categories'
 
 
-class Faq(SearchMetaBase):
+class Faq(PageBase):
+
     page = models.ForeignKey(
         Faqs
+    )
+
+    category = models.ForeignKey(
+        'Category',
+        blank=True,
+        null=True,
     )
 
     question = models.CharField(
@@ -55,36 +59,21 @@ class Faq(SearchMetaBase):
 
     answer = HtmlField()
 
-    categories = models.ManyToManyField(
-        Category,
-        blank=True,
-    )
-
-    slug = models.CharField(
-        max_length=256,
-        unique=True
-    )
-
     order = models.PositiveIntegerField(
         default=0
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.question
 
     class Meta:
         verbose_name = 'FAQ'
         verbose_name_plural = 'FAQs'
-        ordering = ['order', 'id', 'question']
+        ordering = ['order', 'question']
 
     def get_absolute_url(self):
-        return self.page.page.reverse('faq', kwargs={
+        return self.page.page.reverse('faq_detail', kwargs={
             'slug': self.slug,
         })
-
-    # Workaround CMS bug
-    @property
-    def title(self):
-        return self.question
 
 watson.register(Faq)

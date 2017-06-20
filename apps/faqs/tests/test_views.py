@@ -15,7 +15,7 @@ class FAQsTestCase(TestCase):
         # Note: as this is the only page in the database, it's absolute URL
         # will simply be '/'
 
-        with search.updated_index():
+        with search.update_index():
             content_type = ContentType.objects.get_for_model(Faqs)
             self.page = Page.objects.create(
                 content_type=content_type,
@@ -49,4 +49,4 @@ class FAQsTestCase(TestCase):
         view = setup_view(view, request)
         view.dispatch(view.request, *view.args, **view.kwargs)
 
-        self.assertEqual(view.get_paginate_by(view.get_queryset()), 5)
+        self.assertEqual(view.get_paginate_by(view.get_queryset()), 10)
