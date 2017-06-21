@@ -1,6 +1,11 @@
+from cms.models import PageBaseSearchAdapter
 from django.apps import AppConfig
+from watson import search as watson
 
 
-class FAQConfig(AppConfig):
-    name = '{{ project_name }}.apps.faqs'
-    verbose_name = 'FAQs'
+class FaqsConfig(AppConfig):
+    name = 'FAQs'
+
+    def ready(self):
+        Faq = self.get_model('Faq')
+        watson.register(Faq, adapter_cls=PageBaseSearchAdapter)
