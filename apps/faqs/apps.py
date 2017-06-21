@@ -4,7 +4,9 @@ from watson import search as watson
 
 
 class FaqsConfig(AppConfig):
-    name = 'FAQs'
+    name = '{{ project_name }}.apps.faqs'
+    verbose_name = 'FAQ'
+    verbose_name_plural = 'FAQs'
 
     def ready(self):
         Faq = self.get_model('Faq')
